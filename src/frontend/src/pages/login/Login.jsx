@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import './login.css';
+
 export default function Login() {
   const navigate = useNavigate();
   const [emailUser, setEmailUser] = useState('');
@@ -21,27 +23,35 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <div>
-        <input
-          type="text"
-          placeholder="digite seu email..."
-          onChange={({ target }) => setEmailUser(target.value)}
-        />
-        <input
-          type="password"
-          placeholder="digite sua senha..."
-          onChange={({ target }) => setPassUser(target.value)}
-        />
-      </div>
-      <div>
-        <button
-          type="button"
-          disabled={checkDataUser()}
-          onClick={() => loginUser(emailUser, passUser)}
-        >
-          Login
-        </button>
+    <div className="login-page">
+      <div className="login-form">
+        <h4>Bem vindo!</h4>
+        <div className="div-email-login">
+          <input
+            className="input-login"
+            type="text"
+            placeholder="Email..."
+            onChange={({ target }) => setEmailUser(target.value)}
+          />
+        </div>
+        <div className="div-password-login">
+          <input
+            className="input-login"
+            type="password"
+            placeholder="Senha..."
+            onChange={({ target }) => setPassUser(target.value)}
+          />
+        </div>
+        <div className="div-button-login">
+          <button
+            className="button-login"
+            type="button"
+            disabled={checkDataUser()}
+            onClick={() => loginUser(emailUser, passUser)}
+          >
+            Login
+          </button>
+        </div>
       </div>
     </div>
   );
