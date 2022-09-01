@@ -2,6 +2,7 @@ table {
   border-collapse: collapse;
   width: 87%;
   border: 1px solid lightgray;
+  box-shadow: 5px 15px 15px lightgray;
 }
 
 th {
@@ -86,6 +87,7 @@ tr:hover {
   padding: 10px;
   cursor: pointer;
   transition: 0.3s;
+  box-shadow: 1px 3px 3px lightgray;
 }
 
 .btn-add-contact:hover {
