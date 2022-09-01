@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import context from '../../context/context';
 import FormContact from '../components/formContact/FormContact';
+import './contacts.css';
 
 export default function Contacts() {
   const { contacts } = useContext(context);
@@ -28,6 +29,7 @@ export default function Contacts() {
     <div>
       <div>
         <h3>Meus Contatos</h3>
+        <img src="https://img.icons8.com/ios-filled/25/737373/search--v1.png" alt="search-icon" />
         <input
           placeholder="filtrar contato"
           onChange={({ target }) => filterData(target.value)}
@@ -63,7 +65,26 @@ export default function Contacts() {
                   <td>{el.nome}</td>
                   <td>{el.numero}</td>
                   <td>{el.email}</td>
-                  <td>WDE</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn-action btn-whatsapp"
+                    >
+                      <img src="https://img.icons8.com/ios-glyphs/35/1A1A1A/whatsapp.png" alt="whatsapp-icon" />
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-action btn-edit"
+                    >
+                      <img src="https://img.icons8.com/glyph-neue/25/1A1A1A/pencil.png" alt="edit-icon" />
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-action btn-delete"
+                    >
+                      <img src="https://img.icons8.com/sf-regular/25/1A1A1A/trash.png" alt="delet-icon" />
+                    </button>
+                  </td>
                 </tr>
               ))
             }
