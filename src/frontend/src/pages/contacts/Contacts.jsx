@@ -42,7 +42,7 @@ export default function Contacts() {
           onClick={() => setShowForm(!showForm)}
         >
           {
-            showForm ? 'Cancelar' : 'Adicionar Contato'
+            showForm ? 'CANCELAR' : 'Adicionar Contato'
           }
         </button>
       </div>
