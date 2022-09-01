@@ -71,7 +71,7 @@ export default function FormContact() {
         type="button"
         onClick={() => createNewContact()}
       >
-        Adicionar
+        BOTAO DO FORM
       </button>
     </div>
   );

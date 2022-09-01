@@ -27,19 +27,17 @@ export default function Contacts() {
 
   return (
     <div>
-      <div>
+      <div className="div-title-page">
         <h3>Meus Contatos</h3>
-        <img src="https://img.icons8.com/ios-filled/25/737373/search--v1.png" alt="search-icon" />
-        <input
-          placeholder="filtrar contato"
-          onChange={({ target }) => filterData(target.value)}
-        />
-      </div>
-      <div>
-        {
-        showForm && <FormContact />
-        }
+        <div className="div-input-search">
+          <img src="https://img.icons8.com/ios-filled/25/737373/search--v1.png" alt="search-icon" />
+          <input
+            className="input-text-search"
+            onChange={({ target }) => filterData(target.value)}
+          />
+        </div>
         <button
+          className="btn-add-contact"
           type="button"
           onClick={() => setShowForm(!showForm)}
         >
@@ -48,7 +46,12 @@ export default function Contacts() {
           }
         </button>
       </div>
-      <div>
+      <div className="div-button-add">
+        {
+        showForm && <FormContact />
+        }
+      </div>
+      <div className="div-table">
         <table>
           <tbody>
             <tr>
