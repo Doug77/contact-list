@@ -1,4 +1,5 @@
 import React from 'react';
+import Provider from './context/provider';
 
 import Router from './router/router';
 import './App.css';
@@ -6,7 +7,9 @@ import './App.css';
 function App() {
   return (
     <div>
-      <Router />
+      <Provider>
+        <Router />
+      </Provider>
     </div>
   );
 }
