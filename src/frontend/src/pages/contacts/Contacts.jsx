@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import context from '../../context/context';
 
 export default function Contacts() {
+  const { contacts } = useContext(context);
+
   return (
     <div>
       <div>
@@ -19,12 +23,16 @@ export default function Contacts() {
             </tr>
           </tbody>
           <tbody>
-            <tr>
-              <td>doug</td>
-              <td>999999</td>
-              <td>doug@email.com</td>
-              <td>WDE</td>
-            </tr>
+            {
+              contacts.map((el) => (
+                <tr key={el.id}>
+                  <td>{el.nome}</td>
+                  <td>{el.numero}</td>
+                  <td>{el.email}</td>
+                  <td>WDE</td>
+                </tr>
+              ))
+            }
           </tbody>
         </table>
       </div>
