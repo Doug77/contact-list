@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import context from '../../context/context';
+import FormContact from '../components/formContact/FormContact';
 
 export default function Contacts() {
   const { contacts } = useContext(context);
   const [myContatcs, setMycontacts] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
   // Deve buscar do db todos os contatos salvos
   // no momento estamos usando dados mockados
@@ -30,7 +32,19 @@ export default function Contacts() {
           placeholder="filtrar contato"
           onChange={({ target }) => filterData(target.value)}
         />
-        <button type="button">Adicionar Contato</button>
+      </div>
+      <div>
+        {
+        showForm && <FormContact />
+        }
+        <button
+          type="button"
+          onClick={() => setShowForm(!showForm)}
+        >
+          {
+            showForm ? 'Cancelar' : 'Adicionar Contato'
+          }
+        </button>
       </div>
       <div>
         <table>
