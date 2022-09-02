@@ -12,8 +12,10 @@
     "sequelize-cli": "^6.4.1"
   },
   "scripts": {
+    "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/index.js",
+    "drop": "npx sequelize-cli db:drop"
   },
   "devDependencies": {
     "eslint": "^8.23.0",
