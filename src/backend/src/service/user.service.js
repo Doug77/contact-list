@@ -1,4 +1,4 @@
-const { hash } = require('bcrypt');
+const { hash, compare } = require('bcrypt');
 const jwtGenerator = require('../helpers/jwtGeneration');
 const { User } = require('../database/models');
 
@@ -24,6 +24,25 @@ const createUser = async (dataUser) => {
   }
 };
 
+const login = async (dataUser) => {
+  const { email, password } = dataUser;
+
+  try {
+    const userDataBase = await User.findOne({ where: { email } });
+
+    const checkPass = await compare(password, userDataBase.password);
+
+    if (!checkPass) return null;
+
+    const token = jwtGenerator({ password, email });
+
+    return token;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createUser,
+  login,
 };
