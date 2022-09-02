@@ -1,20 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
   const contact = sequelize.define('Contacts', {
     name: DataTypes.STRING,
-    number: DataTypes.BIGINT,
+    number: DataTypes.STRING,
     email: DataTypes.STRING,
     userId: {
       type: DataTypes.INTEGER,
       foreignKey: true,
     },
   }, {
-    underscored: false,
     timestamps: false,
-    tableName: 'Contacts',
+    tableName: 'contacts',
   });
-
   contact.associate = (models) => {
-    contact.belongsTo(models.user, {
+    contact.belongsTo(models.User, {
       as: 'user',
       foreignKey: 'userId',
     });
