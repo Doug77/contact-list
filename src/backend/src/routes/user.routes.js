@@ -5,6 +5,6 @@ const schema = require('../schemas/index');
 
 const router = express.Router();
 
-router.post('/', middlewares.validate(schema.users), controllers.createNewUser);
+router.post('/register', middlewares.validate(schema.users), controllers.createNewUser);
 
 module.exports = router;

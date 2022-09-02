@@ -11,4 +11,4 @@ app.use(express.json());
 
 app.get('/', (_req, res) => res.send('oi'));
 
-app.use('/login', routes.userRouter);
+app.use('/user', routes.userRouter);
