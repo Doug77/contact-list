@@ -12,3 +12,4 @@ app.use(express.json());
 app.get('/', (_req, res) => res.send('oi'));
 
 app.use('/user', routes.userRouter);
+app.use('/contacts', routes.contactRouter);

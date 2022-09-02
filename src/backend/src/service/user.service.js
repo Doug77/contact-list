@@ -13,7 +13,9 @@ const createUser = async (dataUser) => {
     const hashPass = await hash(password, 10);
 
     const newUser = await User.create({ email, password: hashPass });
-    const token = jwtGenerator({ id: newUser.id, password, email });
+    const { id } = await User.findOne({ where: { email } });
+
+    const token = jwtGenerator({ id, password: hashPass, email });
 
     return {
       newUser,
