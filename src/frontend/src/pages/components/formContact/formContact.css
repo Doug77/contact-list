@@ -1,0 +1,39 @@
+.form-container {
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+  border-top: 1px solid lightgray;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.div-form-contact {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+}
+
+label {
+  margin-left: 20px;
+}
+
+.btn-add-contact-form {
+  margin-left: 20px;
+  border: none;
+  background-color: lightseagreen;
+  border-radius: 20px;
+  color: white;
+  height: 35px;
+  width: 100px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-add-contact-form:hover {
+  background-color: rgb(41, 219, 210);
+  transition: 0.3s;
+}
