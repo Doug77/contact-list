@@ -1,5 +1,7 @@
 const { createNewUser, loginUser } = require('./user.controller');
-const { getContact, newContact, updateContact } = require('./contact.controller');
+const {
+  getContact, newContact, updateContact, deleteContact,
+} = require('./contact.controller');
 
 module.exports = {
   createNewUser,
@@ -7,4 +9,5 @@ module.exports = {
   getContact,
   newContact,
   updateContact,
+  deleteContact,
 };

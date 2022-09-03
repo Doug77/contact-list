@@ -58,8 +58,15 @@ const updateContact = async (dataContact) => {
   }
 };
 
+// eslint-disable-next-line no-return-await
+const deleteContact = async (id) => {
+  console.log(id);
+  await Contacts.destroy({ where: { id } });
+};
+
 module.exports = {
   getAllContact,
   creteNewContact,
   updateContact,
+  deleteContact,
 };

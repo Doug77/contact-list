@@ -47,8 +47,21 @@ const updateContact = async (req, res) => {
   }
 };
 
+const deleteContact = async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const result = await service.deleteContact(id);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
   getContact,
   newContact,
   updateContact,
+  deleteContact,
 };

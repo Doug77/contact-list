@@ -1,5 +1,7 @@
 const { createUser, login } = require('./user.service');
-const { getAllContact, creteNewContact, updateContact } = require('./contact.service');
+const {
+  getAllContact, creteNewContact, updateContact, deleteContact,
+} = require('./contact.service');
 
 module.exports = {
   createUser,
@@ -7,4 +9,5 @@ module.exports = {
   getAllContact,
   creteNewContact,
   updateContact,
+  deleteContact,
 };
