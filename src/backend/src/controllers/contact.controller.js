@@ -1,9 +1,10 @@
 const service = require('../service/index');
 
 const getContact = async (req, res) => {
-  const { id } = req.tokenData;
+  const { tokenData } = req;
+
   try {
-    const myListContacts = await service.getAllContact(id);
+    const myListContacts = await service.getAllContact(tokenData);
 
     if (!myListContacts) return res.status(404).json({});
 

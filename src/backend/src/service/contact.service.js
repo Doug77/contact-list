@@ -1,8 +1,11 @@
 const { Contacts } = require('../database/models');
 const { User } = require('../database/models');
 
-const getAllContact = async (id) => {
+const getAllContact = async (data) => {
+  const { email } = data;
   try {
+    const { id } = await User.findOne({ where: { email } });
+
     const myContacts = await Contacts.findAll({
       where:
       { userId: id },
@@ -25,7 +28,6 @@ const creteNewContact = async (contactData) => {
   } = contactData;
   try {
     const { id } = await User.findOne({ where: { email: createEmail } });
-    console.log('id de quem ta criando o contato', id);
 
     const newContact = await Contacts.create({
       name, number, email, userId: id,
