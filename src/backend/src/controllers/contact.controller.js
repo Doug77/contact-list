@@ -30,7 +30,25 @@ const newContact = async (req, res) => {
   }
 };
 
+const updateContact = async (req, res) => {
+  const {
+    id, name, number, email,
+  } = req.body;
+  try {
+    const updatedContact = await service.updateContact({
+      id, name, number, email,
+    });
+
+    if (!updatedContact) return res.status(400).json({ message: 'Bad Request' });
+
+    return res.status(200).end();
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
   getContact,
   newContact,
+  updateContact,
 };

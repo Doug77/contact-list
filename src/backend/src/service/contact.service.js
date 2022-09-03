@@ -41,7 +41,25 @@ const creteNewContact = async (contactData) => {
   }
 };
 
+const updateContact = async (dataContact) => {
+  const {
+    id, name, number, email,
+  } = dataContact;
+  try {
+    const checkContact = await Contacts.findOne({ where: { id } });
+
+    if (!checkContact) return null;
+
+    return await Contacts.update({
+      name, number, email,
+    }, { where: { id } });
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getAllContact,
   creteNewContact,
+  updateContact,
 };
