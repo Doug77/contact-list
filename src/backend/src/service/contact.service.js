@@ -1,5 +1,4 @@
 const { Contacts } = require('../database/models');
-const { User } = require('../database/models');
 
 const getAllContact = async (userId) => {
   try {
@@ -21,16 +20,15 @@ const getAllContact = async (userId) => {
 
 const creteNewContact = async (contactData) => {
   const {
-    name, number, email, createEmail,
+    name, number, email, userId,
   } = contactData;
   try {
-    const { id } = await User.findOne({ where: { email: createEmail } });
-
     const newContact = await Contacts.create({
-      name, number, email, userId: id,
+      name, number, email, userId,
     });
 
     if (!newContact) return null;
+    console.log('meu novo contato', newContact);
 
     return newContact;
   } catch (error) {

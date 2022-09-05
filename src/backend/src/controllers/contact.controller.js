@@ -15,11 +15,16 @@ const getContact = async (req, res) => {
 };
 
 const newContact = async (req, res) => {
-  const { tokenData } = req;
-  const { name, number, email } = req.body;
+  const {
+    name, number, email, userId,
+  } = req.body;
+
+  console.log('o que ta chegando ', {
+    name, number, email, userId,
+  });
   try {
     const myNewContact = await service.creteNewContact({
-      name, number, email, createEmail: tokenData.email,
+      name, number, email, userId,
     });
 
     if (!myNewContact) return res.status(400).json({ message: 'Bad Request' });

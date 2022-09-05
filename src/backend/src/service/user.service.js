@@ -15,7 +15,6 @@ const createUser = async (dataUser) => {
     await User.create({ email, password: hashPass });
 
     const { id } = await User.findOne({ where: { email } });
-    console.log(id, 'id do usuario que tem o email', email);
 
     const token = jwtGenerator({ id, password: hashPass, email });
 
@@ -33,7 +32,6 @@ const login = async (dataUser) => {
 
   try {
     const userDataBase = await User.findOne({ where: { email } });
-    console.log(userDataBase.id);
 
     const checkPass = await compare(password, userDataBase.password);
 

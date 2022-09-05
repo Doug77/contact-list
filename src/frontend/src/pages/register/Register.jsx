@@ -24,10 +24,10 @@ export default function Register() {
     try {
       const { data } = await axios.post(`${BASE_URL}/user/register`, { email, password });
 
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('email', JSON.stringify(email));
+      localStorage.setItem('token', JSON.stringify(data.token));
+      localStorage.setItem('id', JSON.stringify(data.id));
 
-      return navigate('/contacts');
+      return navigate(`/contacts/${data.id}`);
     } catch (error) {
       return Swal.fire({
         icon: 'error',
