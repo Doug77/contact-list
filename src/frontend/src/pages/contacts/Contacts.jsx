@@ -11,8 +11,6 @@ export default function Contacts() {
   const [showForm, setShowForm] = useState(false);
   const BASE_URL = process.env.REACT_APP_API_LINK;
 
-  // Deve buscar do db todos os contatos salvos
-  // no momento estamos usando dados mockados
   const getContacts = async () => {
     const id = localStorage.getItem('id');
     try {
@@ -38,7 +36,6 @@ export default function Contacts() {
 
       const result = await axios.get(`${BASE_URL}/contacts/${id}`);
 
-      console.log('já que não tem nada peguei os dados de novo', result.data);
       return setContacts(result.data);
     }
 
@@ -93,12 +90,14 @@ export default function Contacts() {
                   <td>{el.number}</td>
                   <td>{el.email}</td>
                   <td>
-                    <button
-                      type="button"
+                    <a
+                      href={`https://web.whatsapp.com/send?phone=${el.number}`}
+                      target="_blank"
+                      rel="noreferrer"
                       className="btn-action btn-whatsapp"
                     >
                       <img src="https://img.icons8.com/ios-glyphs/35/1A1A1A/whatsapp.png" alt="whatsapp-icon" />
-                    </button>
+                    </a>
                     <button
                       type="button"
                       className="btn-action btn-edit"
