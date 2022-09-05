@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import './login.css';
 
@@ -7,6 +9,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [emailUser, setEmailUser] = useState('');
   const [passUser, setPassUser] = useState('');
+  const BASE_URL = process.env.REACT_APP_API_LINK;
 
   // verifica se e-mail e senha estão no formato correto.
   const checkDataUser = () => {
@@ -17,9 +20,20 @@ export default function Login() {
   };
 
   // aqui será feito request para API, para realizar login.
-  const loginUser = (email, pass) => {
-    console.log(email, pass);
-    navigate('/contacts');
+  const loginUser = async (email, password) => {
+    try {
+      const { data } = await axios.post(`${BASE_URL}/user/login`, { email, password });
+
+      localStorage.setItem('token', JSON.stringify(data));
+
+      return navigate('/contacts');
+    } catch (error) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Alguma coisa deu errado :(',
+      });
+    }
   };
 
   return (
@@ -55,6 +69,7 @@ export default function Login() {
         <Link
           className="link-to-register"
           to="/register"
+          onClick={() => localStorage.clear()}
         >
           Criar conta
         </Link>
