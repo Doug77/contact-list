@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import './register.css';
 
@@ -20,10 +21,19 @@ export default function Register() {
 
   // aqui será feito request para API, para realizar login.
   const registerUser = async (email, password) => {
-    const { data } = await axios.post(`${BASE_URL}/user/register`, { email, password });
+    try {
+      const { data } = await axios.post(`${BASE_URL}/user/register`, { email, password });
 
-    console.log('meu data', data);
-    navigate('/contacts');
+      localStorage.setItem('token', data.token);
+
+      return navigate('/contacts');
+    } catch (error) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Alguma coisa deu errado :(',
+      });
+    }
   };
 
   return (
@@ -56,6 +66,12 @@ export default function Register() {
             Criar Conta
           </button>
         </div>
+        <Link
+          className="back-to-login"
+          to="/login"
+        >
+          Retornar para login
+        </Link>
       </div>
     </div>
   );
