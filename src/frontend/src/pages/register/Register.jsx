@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import './register.css';
 
@@ -7,6 +8,7 @@ export default function Register() {
   const navigate = useNavigate();
   const [emailUser, setEmailUser] = useState('');
   const [passUser, setPassUser] = useState('');
+  const BASE_URL = process.env.REACT_APP_API_LINK;
 
   // verifica se e-mail e senha estão no formato correto.
   const checkDataUser = () => {
@@ -17,8 +19,10 @@ export default function Register() {
   };
 
   // aqui será feito request para API, para realizar login.
-  const registerUser = (email, pass) => {
-    console.log(email, pass);
+  const registerUser = async (email, password) => {
+    const { data } = await axios.post(`${BASE_URL}/user/register`, { email, password });
+
+    console.log('meu data', data);
     navigate('/contacts');
   };
 
