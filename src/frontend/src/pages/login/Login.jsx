@@ -11,7 +11,6 @@ export default function Login() {
   const [passUser, setPassUser] = useState('');
   const BASE_URL = process.env.REACT_APP_API_LINK;
 
-  // verifica se e-mail e senha estão no formato correto.
   const checkDataUser = () => {
     const regexEmail = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const MIN_NUMBER = 6;
@@ -19,15 +18,14 @@ export default function Login() {
     return !(regexEmail.test(emailUser) && passUser.length >= MIN_NUMBER);
   };
 
-  // aqui será feito request para API, para realizar login.
   const loginUser = async (email, password) => {
     try {
-      const { data } = await axios.post(`${BASE_URL}/user/login`, { email, password });
+      const { data: { id, token } } = await axios.post(`${BASE_URL}/user/login`, { email, password });
 
-      localStorage.setItem('token', JSON.stringify(data));
-      localStorage.setItem('email', JSON.stringify(email));
+      localStorage.setItem('token', JSON.stringify(token));
+      localStorage.setItem('id', JSON.stringify(id));
 
-      return navigate('/contacts');
+      return navigate(`/contacts/${id}`);
     } catch (error) {
       return Swal.fire({
         icon: 'error',

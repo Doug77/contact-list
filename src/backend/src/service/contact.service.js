@@ -1,14 +1,11 @@
 const { Contacts } = require('../database/models');
 const { User } = require('../database/models');
 
-const getAllContact = async (data) => {
-  const { email } = data;
+const getAllContact = async (userId) => {
   try {
-    const { id } = await User.findOne({ where: { email } });
-
     const myContacts = await Contacts.findAll({
       where:
-      { userId: id },
+      { userId },
       attributes: {
         exclude: ['userId', 'UserId'],
       },

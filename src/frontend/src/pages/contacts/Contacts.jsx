@@ -1,28 +1,52 @@
 import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import context from '../../context/context';
 import FormContact from '../components/formContact/FormContact';
 import './contacts.css';
 
 export default function Contacts() {
-  const { contacts } = useContext(context);
-  const [myContatcs, setMycontacts] = useState([]);
+  const { contacts, setContacts } = useContext(context);
   const [showForm, setShowForm] = useState(false);
+  const BASE_URL = process.env.REACT_APP_API_LINK;
 
   // Deve buscar do db todos os contatos salvos
   // no momento estamos usando dados mockados
+  const getContacts = async () => {
+    const id = localStorage.getItem('id');
+    try {
+      const { data } = await axios.get(`${BASE_URL}/contacts/${id}`);
+
+      return setContacts(data);
+    } catch (error) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Alguma coisa deu errado :(',
+      });
+    }
+  };
+
   useEffect(() => {
-    setMycontacts(contacts);
+    getContacts();
   }, []);
 
-  const filterData = (data) => {
-    if (!data) return setMycontacts(contacts);
+  const filterData = async (data) => {
+    if (!data) {
+      const id = localStorage.getItem('id');
 
-    const dataFilter = myContatcs.filter((element) => (
-      element.nome.includes(data) || element.numero.includes(data)
+      const result = await axios.get(`${BASE_URL}/contacts/${id}`);
+
+      console.log('já que não tem nada peguei os dados de novo', result.data);
+      return setContacts(result.data);
+    }
+
+    const dataFilter = contacts.filter((element) => (
+      element.name.includes(data) || element.number.toString().includes(data)
     ));
 
-    return setMycontacts(dataFilter);
+    return setContacts(dataFilter);
   };
 
   return (
@@ -63,10 +87,10 @@ export default function Contacts() {
           </tbody>
           <tbody>
             {
-              myContatcs.map((el) => (
+              contacts.map((el) => (
                 <tr key={el.id}>
-                  <td>{el.nome}</td>
-                  <td>{el.numero}</td>
+                  <td>{el.name}</td>
+                  <td>{el.number}</td>
                   <td>{el.email}</td>
                   <td>
                     <button

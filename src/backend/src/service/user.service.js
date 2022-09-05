@@ -12,13 +12,15 @@ const createUser = async (dataUser) => {
 
     const hashPass = await hash(password, 10);
 
-    const newUser = await User.create({ email, password: hashPass });
+    await User.create({ email, password: hashPass });
+
     const { id } = await User.findOne({ where: { email } });
+    console.log(id, 'id do usuario que tem o email', email);
 
     const token = jwtGenerator({ id, password: hashPass, email });
 
     return {
-      newUser,
+      id,
       token,
     };
   } catch (error) {
@@ -31,6 +33,7 @@ const login = async (dataUser) => {
 
   try {
     const userDataBase = await User.findOne({ where: { email } });
+    console.log(userDataBase.id);
 
     const checkPass = await compare(password, userDataBase.password);
 
@@ -38,7 +41,10 @@ const login = async (dataUser) => {
 
     const token = jwtGenerator({ password, email });
 
-    return token;
+    return {
+      id: userDataBase.id,
+      token,
+    };
   } catch (error) {
     return error;
   }

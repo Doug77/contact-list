@@ -13,7 +13,7 @@ export default function Router() {
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/contacts" element={<Main main={<Contacts />} />} />
+      <Route path="/contacts/:id" element={<Main main={<Contacts />} />} />
     </Routes>
   );
 }
