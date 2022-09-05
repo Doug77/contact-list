@@ -48,7 +48,7 @@ const updateContact = async (req, res) => {
 };
 
 const deleteContact = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   try {
     const result = await service.deleteContact(id);

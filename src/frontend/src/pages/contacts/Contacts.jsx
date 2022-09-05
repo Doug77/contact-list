@@ -46,6 +46,17 @@ export default function Contacts() {
     return setContacts(dataFilter);
   };
 
+  const deleteContact = async (id) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = {
+      Authorization: token,
+    };
+
+    await axios.delete(`${BASE_URL}/contacts/${id}`, { headers });
+
+    await getContacts();
+  };
+
   return (
     <div>
       <div className="div-title-page">
@@ -107,6 +118,7 @@ export default function Contacts() {
                     <button
                       type="button"
                       className="btn-action btn-delete"
+                      onClick={() => deleteContact(el.id)}
                     >
                       <img src="https://img.icons8.com/sf-regular/25/1A1A1A/trash.png" alt="delet-icon" />
                     </button>
