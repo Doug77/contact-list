@@ -25,6 +25,7 @@ export default function Login() {
       const { data } = await axios.post(`${BASE_URL}/user/login`, { email, password });
 
       localStorage.setItem('token', JSON.stringify(data));
+      localStorage.setItem('email', JSON.stringify(email));
 
       return navigate('/contacts');
     } catch (error) {

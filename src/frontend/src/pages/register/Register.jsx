@@ -25,6 +25,7 @@ export default function Register() {
       const { data } = await axios.post(`${BASE_URL}/user/register`, { email, password });
 
       localStorage.setItem('token', data.token);
+      localStorage.setItem('email', JSON.stringify(email));
 
       return navigate('/contacts');
     } catch (error) {
