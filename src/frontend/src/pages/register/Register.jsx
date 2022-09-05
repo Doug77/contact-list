@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import './login.css';
+import './register.css';
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
   const [emailUser, setEmailUser] = useState('');
   const [passUser, setPassUser] = useState('');
@@ -17,47 +17,41 @@ export default function Login() {
   };
 
   // aqui será feito request para API, para realizar login.
-  const loginUser = (email, pass) => {
+  const registerUser = (email, pass) => {
     console.log(email, pass);
     navigate('/contacts');
   };
 
   return (
-    <div className="login-page">
-      <div className="login-form">
-        <h4>Bem vindo!</h4>
-        <div className="div-email-login">
+    <div className="register-page">
+      <div className="register-form">
+        <h4>Crie sua conta!</h4>
+        <div className="div-email-register">
           <input
-            className="input-login"
+            className="input-register"
             type="text"
             placeholder="Email..."
             onChange={({ target }) => setEmailUser(target.value)}
           />
         </div>
-        <div className="div-password-login">
+        <div className="div-password-register">
           <input
-            className="input-login"
+            className="input-register"
             type="password"
             placeholder="Senha..."
             onChange={({ target }) => setPassUser(target.value)}
           />
         </div>
-        <div className="div-button-login">
+        <div className="div-button-register">
           <button
-            className="button-login"
+            className="button-register"
             type="button"
             disabled={checkDataUser()}
-            onClick={() => loginUser(emailUser, passUser)}
+            onClick={() => registerUser(emailUser, passUser)}
           >
-            Login
+            Criar Conta
           </button>
         </div>
-        <Link
-          className="link-to-register"
-          to="/register"
-        >
-          Criar conta
-        </Link>
       </div>
     </div>
   );
