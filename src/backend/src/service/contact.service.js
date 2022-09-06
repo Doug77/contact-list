@@ -28,7 +28,6 @@ const creteNewContact = async (contactData) => {
     });
 
     if (!newContact) return null;
-    console.log('meu novo contato', newContact);
 
     return newContact;
   } catch (error) {

@@ -19,9 +19,6 @@ const newContact = async (req, res) => {
     name, number, email, userId,
   } = req.body;
 
-  console.log('o que ta chegando ', {
-    name, number, email, userId,
-  });
   try {
     const myNewContact = await service.creteNewContact({
       name, number, email, userId,
