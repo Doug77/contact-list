@@ -5,10 +5,13 @@ import Swal from 'sweetalert2';
 import context from '../../context/context';
 import FormContact from '../components/formContact/FormContact';
 import './contacts.css';
+import ReadingLine from '../components/readingLine/readingLine';
+import EditableLine from '../components/editableLine/EditableLine';
 
 export default function Contacts() {
   const { contacts, setContacts } = useContext(context);
   const [showForm, setShowForm] = useState(false);
+  const [editLine, setEditLine] = useState(null);
   const BASE_URL = process.env.REACT_APP_API_LINK;
 
   const getContacts = async () => {
@@ -57,6 +60,40 @@ export default function Contacts() {
     await getContacts();
   };
 
+  const editContact = async (updatedContact) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = {
+      Authorization: token,
+    };
+
+    try {
+      await axios.put(`${BASE_URL}/contacts`, updatedContact, { headers });
+      setTimeout(() => {
+        getContacts();
+        setEditLine(null);
+      }, 1600);
+      return Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Contato atualizado com sucesso!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Alguma coisa deu errado :(',
+      });
+    }
+  };
+
+  const showEditLine = (id) => {
+    if (!id) return setEditLine(null);
+
+    return setEditLine(id);
+  };
+
   return (
     <div>
       <div className="div-title-page">
@@ -97,32 +134,22 @@ export default function Contacts() {
             {
               contacts.map((el) => (
                 <tr key={el.id}>
-                  <td>{el.name}</td>
-                  <td>{el.number}</td>
-                  <td>{el.email}</td>
-                  <td>
-                    <a
-                      href={`https://web.whatsapp.com/send?phone=${el.number}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn-action btn-whatsapp"
-                    >
-                      <img src="https://img.icons8.com/ios-glyphs/35/1A1A1A/whatsapp.png" alt="whatsapp-icon" />
-                    </a>
-                    <button
-                      type="button"
-                      className="btn-action btn-edit"
-                    >
-                      <img src="https://img.icons8.com/glyph-neue/25/1A1A1A/pencil.png" alt="edit-icon" />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn-action btn-delete"
-                      onClick={() => deleteContact(el.id)}
-                    >
-                      <img src="https://img.icons8.com/sf-regular/25/1A1A1A/trash.png" alt="delet-icon" />
-                    </button>
-                  </td>
+                  { editLine === el.id
+                    ? (
+                      <EditableLine
+                        el={el}
+                        showEditLine={showEditLine}
+                        editContact={editContact}
+                      />
+                    )
+                    : (
+                      <ReadingLine
+                        el={el}
+                        deleteContact={deleteContact}
+                        showEditLine={showEditLine}
+                      />
+                    )}
+
                 </tr>
               ))
             }
