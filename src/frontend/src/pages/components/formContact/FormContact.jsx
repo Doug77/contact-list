@@ -1,15 +1,26 @@
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import React, { useState } from 'react';
+// import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import './formContact.css';
 
+// export default function FormContact() {
 export default function FormContact({ getMyContacts }) {
   const [newContactName, setNewContactName] = useState('');
   const [newContactNumber, setNewContactNumber] = useState('');
   const [newContactEmail, setNewContactEmail] = useState('');
 
-  const checkInputData = () => {
+  const createNewContact = async () => {
+    const BASE_URL = process.env.REACT_APP_API_LINK;
+    const token = JSON.parse(localStorage.getItem('token'));
+    const id = JSON.parse(localStorage.getItem('id'));
+    const headers = {
+      Authorization: token,
+    };
+    const regexEmail = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const MIN_NUMBER = 11;
+
     if (!newContactName || !newContactEmail || !newContactNumber) {
       return Swal.fire({
         title: 'Campos inválidos',
@@ -20,21 +31,6 @@ export default function FormContact({ getMyContacts }) {
         showCloseButton: true,
       });
     }
-
-    return true;
-  };
-
-  const createNewContact = async () => {
-    const BASE_URL = process.env.REACT_APP_API_LINK;
-    const token = JSON.parse(localStorage.getItem('token'));
-    const id = JSON.parse(localStorage.getItem('id'));
-    const headers = {
-      Authorization: token,
-    };
-
-    checkInputData();
-    const regexEmail = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    const MIN_NUMBER = 11;
 
     if (!(regexEmail.test(newContactEmail) && newContactNumber.length >= MIN_NUMBER)) {
       return Swal.fire({
@@ -80,7 +76,7 @@ export default function FormContact({ getMyContacts }) {
       });
     }
   };
-
+  console.log('loop');
   return (
     <div className="form-container">
       <div className="div-form-contact">

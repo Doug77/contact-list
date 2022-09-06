@@ -117,7 +117,7 @@ export default function Contacts() {
       </div>
       <div className="div-button-add">
         {
-        showForm && <FormContact functionGetContact={getContacts()} />
+        showForm && <FormContact functionGetContact={getContacts} />
         }
       </div>
       <div className="div-table">
