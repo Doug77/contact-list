@@ -24,7 +24,15 @@ export default function FormContact({ getMyContacts }) {
     return true;
   };
 
-  const validateEmailOrNumber = () => {
+  const createNewContact = async () => {
+    const BASE_URL = process.env.REACT_APP_API_LINK;
+    const token = JSON.parse(localStorage.getItem('token'));
+    const id = JSON.parse(localStorage.getItem('id'));
+    const headers = {
+      Authorization: token,
+    };
+
+    checkInputData();
     const regexEmail = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const MIN_NUMBER = 11;
 
@@ -38,20 +46,6 @@ export default function FormContact({ getMyContacts }) {
         showCloseButton: true,
       });
     }
-
-    return true;
-  };
-
-  const createNewContact = async () => {
-    const BASE_URL = process.env.REACT_APP_API_LINK;
-    const token = JSON.parse(localStorage.getItem('token'));
-    const id = JSON.parse(localStorage.getItem('id'));
-    const headers = {
-      Authorization: token,
-    };
-
-    checkInputData();
-    validateEmailOrNumber();
 
     const newContactUser = {
       name: newContactName,
