@@ -17,6 +17,8 @@ export default function FormContact({ functionGetContact }) {
     const id = JSON.parse(localStorage.getItem('id'));
     const headers = {
       Authorization: token,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
     };
     const regexEmail = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const MIN_NUMBER = 11;

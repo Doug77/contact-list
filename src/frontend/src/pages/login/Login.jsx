@@ -19,8 +19,12 @@ export default function Login() {
   };
 
   const loginUser = async (email, password) => {
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+    };
     try {
-      const { data: { id, token } } = await axios.post(`${BASE_URL}/user/login`, { email, password });
+      const { data: { id, token } } = await axios.post(`${BASE_URL}/user/login`, { email, password }, { headers });
 
       localStorage.setItem('token', JSON.stringify(token));
       localStorage.setItem('id', JSON.stringify(id));

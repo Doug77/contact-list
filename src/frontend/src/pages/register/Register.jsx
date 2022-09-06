@@ -21,8 +21,12 @@ export default function Register() {
 
   // aqui será feito request para API, para realizar login.
   const registerUser = async (email, password) => {
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+    };
     try {
-      const { data } = await axios.post(`${BASE_URL}/user/register`, { email, password });
+      const { data } = await axios.post(`${BASE_URL}/user/register`, { email, password }, { headers });
 
       localStorage.setItem('token', JSON.stringify(data.token));
       localStorage.setItem('id', JSON.stringify(data.id));

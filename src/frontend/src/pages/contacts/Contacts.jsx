@@ -36,8 +36,12 @@ export default function Contacts() {
   const filterData = async (data) => {
     if (!data) {
       const id = localStorage.getItem('id');
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      };
 
-      const result = await axios.get(`${BASE_URL}/contacts/${id}`);
+      const result = await axios.get(`${BASE_URL}/contacts/${id}`, { headers });
 
       return setContacts(result.data);
     }
@@ -53,6 +57,8 @@ export default function Contacts() {
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = {
       Authorization: token,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
     };
 
     await axios.delete(`${BASE_URL}/contacts/${id}`, { headers });
@@ -64,6 +70,8 @@ export default function Contacts() {
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = {
       Authorization: token,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
     };
 
     try {
