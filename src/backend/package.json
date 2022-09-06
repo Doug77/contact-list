@@ -15,7 +15,7 @@
   "scripts": {
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "start": "node ./src/index.js",
-    "build": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && node ./src/index.js",
+    "build": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "dev": "nodemon ./src/index.js",
     "drop": "npx sequelize-cli db:drop"
   },
