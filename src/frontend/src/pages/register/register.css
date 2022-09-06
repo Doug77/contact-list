@@ -1,4 +1,4 @@
-.login-page {
+.register-page {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.login-form {
+.register-form {
   width: 300px;
   height: 300px;
   border: 1px solid lightgray;
@@ -19,26 +19,26 @@
   padding: 15px;
 }
 
-.div-email-login {
+.div-email-register {
   margin-top: 35px;
 }
 
-.input-login {
+.input-register {
   border: none;
   background-color: rgb(231, 231, 231);
   padding: 10px;
   border-radius: 50px;
 }
 
-.div-password-login {
+.div-password-register {
   margin-top: 5px;
 }
 
-.div-button-login {
+.div-button-register {
   margin-top: 20px;
 }
 
-.button-login {
+.button-register {
   width: 180px;
   height: 30px;
   border: none;
@@ -48,15 +48,15 @@
   transition: 0.3s;
 }
 
-.button-login:disabled {
+.button-register:disabled {
   cursor: not-allowed;
 }
 
-.button-login:enabled {
+.button-register:enabled {
   transition: 0.3s;
   background-color: rgb(232, 238, 144);
 }
 
-.link-to-register {
+.back-to-login {
   margin-top: 20px;
 }

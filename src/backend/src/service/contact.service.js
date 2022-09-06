@@ -1,14 +1,10 @@
 const { Contacts } = require('../database/models');
-const { User } = require('../database/models');
 
-const getAllContact = async (data) => {
-  const { email } = data;
+const getAllContact = async (userId) => {
   try {
-    const { id } = await User.findOne({ where: { email } });
-
     const myContacts = await Contacts.findAll({
       where:
-      { userId: id },
+      { userId },
       attributes: {
         exclude: ['userId', 'UserId'],
       },
@@ -24,13 +20,11 @@ const getAllContact = async (data) => {
 
 const creteNewContact = async (contactData) => {
   const {
-    name, number, email, createEmail,
+    name, number, email, userId,
   } = contactData;
   try {
-    const { id } = await User.findOne({ where: { email: createEmail } });
-
     const newContact = await Contacts.create({
-      name, number, email, userId: id,
+      name, number, email, userId,
     });
 
     if (!newContact) return null;
@@ -60,7 +54,6 @@ const updateContact = async (dataContact) => {
 
 // eslint-disable-next-line no-return-await
 const deleteContact = async (id) => {
-  console.log(id);
   await Contacts.destroy({ where: { id } });
 };
 

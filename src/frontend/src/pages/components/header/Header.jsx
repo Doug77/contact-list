@@ -7,7 +7,12 @@ export default function Header() {
   return (
     <header>
       <nav>
-        <Link to="/login">Logout</Link>
+        <Link
+          to="/login"
+          onClick={() => localStorage.clear()}
+        >
+          Logout
+        </Link>
       </nav>
     </header>
   );

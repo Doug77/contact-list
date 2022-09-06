@@ -1,10 +1,10 @@
 const service = require('../service/index');
 
 const getContact = async (req, res) => {
-  const { tokenData } = req;
+  const { id } = req.params;
 
   try {
-    const myListContacts = await service.getAllContact(tokenData);
+    const myListContacts = await service.getAllContact(id);
 
     if (!myListContacts) return res.status(404).json({});
 
@@ -15,11 +15,13 @@ const getContact = async (req, res) => {
 };
 
 const newContact = async (req, res) => {
-  const { tokenData } = req;
-  const { name, number, email } = req.body;
+  const {
+    name, number, email, userId,
+  } = req.body;
+
   try {
     const myNewContact = await service.creteNewContact({
-      name, number, email, createEmail: tokenData.email,
+      name, number, email, userId,
     });
 
     if (!myNewContact) return res.status(400).json({ message: 'Bad Request' });
@@ -48,7 +50,7 @@ const updateContact = async (req, res) => {
 };
 
 const deleteContact = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   try {
     const result = await service.deleteContact(id);

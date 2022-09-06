@@ -1,28 +1,97 @@
 import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import context from '../../context/context';
 import FormContact from '../components/formContact/FormContact';
 import './contacts.css';
+import ReadingLine from '../components/readingLine/readingLine';
+import EditableLine from '../components/editableLine/EditableLine';
 
 export default function Contacts() {
-  const { contacts } = useContext(context);
-  const [myContatcs, setMycontacts] = useState([]);
+  const { contacts, setContacts } = useContext(context);
   const [showForm, setShowForm] = useState(false);
+  const [editLine, setEditLine] = useState(null);
+  const BASE_URL = process.env.REACT_APP_API_LINK;
 
-  // Deve buscar do db todos os contatos salvos
-  // no momento estamos usando dados mockados
+  const getContacts = async () => {
+    const id = localStorage.getItem('id');
+    try {
+      const { data } = await axios.get(`${BASE_URL}/contacts/${id}`);
+
+      return setContacts(data);
+    } catch (error) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Alguma coisa deu errado :(',
+      });
+    }
+  };
+
   useEffect(() => {
-    setMycontacts(contacts);
+    getContacts();
   }, []);
 
-  const filterData = (data) => {
-    if (!data) return setMycontacts(contacts);
+  const filterData = async (data) => {
+    if (!data) {
+      const id = localStorage.getItem('id');
 
-    const dataFilter = myContatcs.filter((element) => (
-      element.nome.includes(data) || element.numero.includes(data)
+      const result = await axios.get(`${BASE_URL}/contacts/${id}`);
+
+      return setContacts(result.data);
+    }
+
+    const dataFilter = contacts.filter((element) => (
+      element.name.includes(data) || element.number.toString().includes(data)
     ));
 
-    return setMycontacts(dataFilter);
+    return setContacts(dataFilter);
+  };
+
+  const deleteContact = async (id) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = {
+      Authorization: token,
+    };
+
+    await axios.delete(`${BASE_URL}/contacts/${id}`, { headers });
+
+    await getContacts();
+  };
+
+  const editContact = async (updatedContact) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = {
+      Authorization: token,
+    };
+
+    try {
+      await axios.put(`${BASE_URL}/contacts`, updatedContact, { headers });
+      setTimeout(() => {
+        getContacts();
+        setEditLine(null);
+      }, 1600);
+      return Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Contato atualizado com sucesso!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Alguma coisa deu errado :(',
+      });
+    }
+  };
+
+  const showEditLine = (id) => {
+    if (!id) return setEditLine(null);
+
+    return setEditLine(id);
   };
 
   return (
@@ -48,7 +117,7 @@ export default function Contacts() {
       </div>
       <div className="div-button-add">
         {
-        showForm && <FormContact />
+        showForm && <FormContact functionGetContact={getContacts} />
         }
       </div>
       <div className="div-table">
@@ -63,31 +132,24 @@ export default function Contacts() {
           </tbody>
           <tbody>
             {
-              myContatcs.map((el) => (
+              contacts.map((el) => (
                 <tr key={el.id}>
-                  <td>{el.nome}</td>
-                  <td>{el.numero}</td>
-                  <td>{el.email}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn-action btn-whatsapp"
-                    >
-                      <img src="https://img.icons8.com/ios-glyphs/35/1A1A1A/whatsapp.png" alt="whatsapp-icon" />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn-action btn-edit"
-                    >
-                      <img src="https://img.icons8.com/glyph-neue/25/1A1A1A/pencil.png" alt="edit-icon" />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn-action btn-delete"
-                    >
-                      <img src="https://img.icons8.com/sf-regular/25/1A1A1A/trash.png" alt="delet-icon" />
-                    </button>
-                  </td>
+                  { editLine === el.id
+                    ? (
+                      <EditableLine
+                        el={el}
+                        showEditLine={showEditLine}
+                        editContact={editContact}
+                      />
+                    )
+                    : (
+                      <ReadingLine
+                        el={el}
+                        deleteContact={deleteContact}
+                        showEditLine={showEditLine}
+                      />
+                    )}
+
                 </tr>
               ))
             }
