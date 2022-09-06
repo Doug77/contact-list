@@ -76,7 +76,7 @@ export default function FormContact({ functionGetContact }) {
       });
     }
   };
-  console.log('loop');
+
   return (
     <div className="form-container">
       <div className="div-form-contact">
