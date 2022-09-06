@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import './formContact.css';
 
 // export default function FormContact() {
-export default function FormContact({ getMyContacts }) {
+export default function FormContact({ functionGetContact }) {
   const [newContactName, setNewContactName] = useState('');
   const [newContactNumber, setNewContactNumber] = useState('');
   const [newContactEmail, setNewContactEmail] = useState('');
@@ -57,6 +57,7 @@ export default function FormContact({ getMyContacts }) {
         setNewContactEmail('');
         setNewContactNumber('');
         setNewContactName('');
+        functionGetContact();
         return Swal.fire({
           position: 'center',
           icon: 'success',
@@ -66,7 +67,6 @@ export default function FormContact({ getMyContacts }) {
         });
       }
 
-      getMyContacts();
       return myNewContact;
     } catch (error) {
       return Swal.fire({
@@ -133,6 +133,5 @@ export default function FormContact({ getMyContacts }) {
 }
 
 FormContact.propTypes = {
-  // eslint-disable-next-line react/require-default-props
-  getMyContacts: PropTypes.func,
+  functionGetContact: PropTypes.func.isRequired,
 };
