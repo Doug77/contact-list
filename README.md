@@ -103,5 +103,20 @@ Para finalizar o Docker Compose
   docker-compose down
 ```
 
-Link para acessar a aplicação:
-link
+
+
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+#### No Front-End
+`REACT_APP_API_LINK`
+
+#### No Back-End
+`MYSQL_USER`
+`MYSQL_PASSWORD`
+`HOSTNAME`
+`PORT_DB`
+`PORT`
+`JWT`
+
