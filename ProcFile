@@ -1,0 +1,3 @@
+web-api: npm start src/backend/src
+
+web-client: npm start src/frontend/src
