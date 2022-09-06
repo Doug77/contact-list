@@ -37,6 +37,22 @@ O usuario criando sua nova conta, poderá adicionar, remover, atualizar, deletar
 **Back-end:** Node, Express, Sequelize, MYSQL, JWT, Joi, Bcrypt, Docker.
 
 
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+#### No Front-End
+`REACT_APP_API_LINK`
+
+#### No Back-End
+`MYSQL_USER`
+`MYSQL_PASSWORD`
+`HOSTNAME`
+`PORT_DB`
+`PORT`
+`JWT`
+
+
 ## Rodando localmente
 
 Clone o projeto
@@ -103,20 +119,4 @@ Para finalizar o Docker Compose
   docker-compose down
 ```
 
-
-
-## Variáveis de Ambiente
-
-Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
-
-#### No Front-End
-`REACT_APP_API_LINK`
-
-#### No Back-End
-`MYSQL_USER`
-`MYSQL_PASSWORD`
-`HOSTNAME`
-`PORT_DB`
-`PORT`
-`JWT`
 
